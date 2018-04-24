@@ -1,0 +1,60 @@
+version: '2'
+services:
+  grafana:
+    image: grafana/grafana:4.2.0
+    environment:
+      GF_USERS_ALLOW_SIGN_UP: "$strGrafanaAllowRegister"
+      GF_SERVER_ROOT_URL: "$strGrafanaRootUrl"
+      {{- if eq .Values.boolSmtpEnabled "true"}}
+      GF_SMTP_ENABLED: 'true'
+      GF_SMTP_FROM_ADDRESS: "srtSmtpFromAddress"
+      GF_SMTP_FROM_NAME: "Grafana nubeadhoc"
+      GF_SMTP_HOST: "$strSmtpServer:$intSmtPort"
+      GF_SMTP_PASSWORD: "$strSmtPassword"
+      GF_SMTP_USER: "$srtSmtpFromAddress"    
+    tty: true
+    links:
+    - $strInfluxDBHost:$strInfluxDBHost
+    volumes_from:
+    - graf-db
+    ports:
+    - $http_port:http_port
+    labels:
+      io.rancher.sidekicks: graf-db
+      {{- if eq .Values.boolTraefikEnabled "true"}}
+      traefik.enable: 'true'
+      traefik.frontend.rule: "$strTraefikFrontEndRule"
+      traefik.port: '$http_port'
+  graf-db:
+    image: infinityworks/graf-db:11
+    network_mode: none
+    volumes:
+    - grafana-data:/var/lib/grafana/
+    tty: true
+    links:
+    - $strInfluxDBHost:$strInfluxDBHost
+    command:
+    - cat
+  telegraf-exporter:
+    privileged: true
+    image: nikitux/telegraf:v1.4-alpine
+    environment:
+      INFLUXDB_HOST: http://$strInfluxDBHost:$strInfluxDBPort
+    stdin_open: true
+    network_mode: host
+    tty: true
+    links:
+    - $strInfluxDBHost:$strInfluxDBHost
+    labels:
+      io.rancher.container.dns: 'true'
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+  influxdb:
+    image: influxdb:1.4
+    stdin_open: true
+    volumes:
+    - influxdb-data:/var/lib/influxdb
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+
