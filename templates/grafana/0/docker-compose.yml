@@ -11,7 +11,8 @@ services:
       GF_SMTP_FROM_NAME: "Grafana nubeadhoc"
       GF_SMTP_HOST: "$strSmtpServer:$intSmtPort"
       GF_SMTP_PASSWORD: "$strSmtPassword"
-      GF_SMTP_USER: "$srtSmtpFromAddress"    
+      GF_SMTP_USER: "$srtSmtpFromAddress"
+      {{- end }}    
     tty: true
     links:
     - $strInfluxDBHost:$strInfluxDBHost
@@ -25,6 +26,7 @@ services:
       traefik.enable: 'true'
       traefik.frontend.rule: "$strTraefikFrontEndRule"
       traefik.port: '$http_port'
+      {{- end }}
   graf-db:
     image: infinityworks/graf-db:11
     network_mode: none
