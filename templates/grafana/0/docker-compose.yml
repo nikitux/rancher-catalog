@@ -19,7 +19,7 @@ services:
     volumes_from:
     - graf-db
     ports:
-    - $http_port:http_port
+    - $http_port:$http_port
     labels:
       io.rancher.sidekicks: graf-db
       {{- if eq .Values.boolTraefikEnabled "true"}}
