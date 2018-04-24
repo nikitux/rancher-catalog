@@ -7,8 +7,8 @@ services:
       GF_SERVER_ROOT_URL: "$strGrafanaRootUrl"
       {{- if eq .Values.boolSmtpEnabled "true"}}
       GF_SMTP_ENABLED: 'true'
-      GF_SMTP_FROM_ADDRESS: "srtSmtpFromAddress"
-      GF_SMTP_FROM_NAME: "Grafana nubeadhoc"
+      GF_SMTP_FROM_ADDRESS: "$srtSmtpFromAddress"
+      GF_SMTP_FROM_NAME: "$srtSmtpFromName"
       GF_SMTP_HOST: "$strSmtpServer:$intSmtPort"
       GF_SMTP_PASSWORD: "$strSmtPassword"
       GF_SMTP_USER: "$srtSmtpFromAddress"
