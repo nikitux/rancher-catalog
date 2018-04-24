@@ -107,7 +107,12 @@ catalog:
     - variable: srtSmtpFromAddress
       label: "SMTP From Address"
       type: "string"
-      default: "root@localhost"
+      default: "root@localhost.com"
+
+     - variable: srtSmtpFromName
+      label: "SMTP From Name"
+      type: "string"
+      default: "grafana"
 
      # TRAEFIK config
 
