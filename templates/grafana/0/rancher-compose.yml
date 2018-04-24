@@ -109,7 +109,7 @@ catalog:
       type: "string"
       default: "root@localhost.com"
 
-     - variable: srtSmtpFromName
+    - variable: srtSmtpFromName
       label: "SMTP From Name"
       type: "string"
       default: "grafana"
