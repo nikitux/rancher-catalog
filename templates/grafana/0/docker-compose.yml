@@ -10,7 +10,7 @@ services:
       GF_SMTP_FROM_ADDRESS: "$srtSmtpFromAddress"
       GF_SMTP_FROM_NAME: "$srtSmtpFromName"
       GF_SMTP_HOST: "$strSmtpServer:$intSmtPort"
-      GF_SMTP_PASSWORD: "$strSmtPassword"
+      GF_SMTP_PASSWORD: "$strSmtpPassword"
       GF_SMTP_USER: "$srtSmtpFromAddress"
       {{- end }}    
     tty: true
@@ -26,6 +26,7 @@ services:
       traefik.enable: 'true'
       traefik.frontend.rule: "$strTraefikFrontEndRule"
       traefik.port: '$http_port'
+      traefik.frontend.auth.basic: "$strTraefikAuthBasic"
       {{- end }}
   graf-db:
     image: infinityworks/graf-db:11
@@ -55,7 +56,7 @@ services:
     image: influxdb:1.4
     stdin_open: true
     volumes:
-    - influxdb-data:/var/lib/influxdb
+    - $strInfluxVolumeName:/var/lib/influxdb
     tty: true
     labels:
       io.rancher.container.pull_image: always

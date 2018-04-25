@@ -24,7 +24,7 @@ catalog:
       label: "Admin Password"
       required: true
       default: "password"
-      type: "string"
+      type: "password"
     
     - variable: install_plugins
       description: "Include/Install Grafana Plugins (comma-separated plugin-ids)"
@@ -46,6 +46,13 @@ catalog:
       required: true
       default: "8086"
       type: "int"
+
+    - variable: strInfluxVolumeName
+      description: "InfluxDB Volumen Name"
+      label: "InfluxDB Volumen Name"
+      required: false
+      default: "influxdb-data"
+      type: "string"
 
     - variable: strGrafanaAllowRegister
       description: "Grafana Allow Register new users"
@@ -93,7 +100,7 @@ catalog:
       type: "string"
       required: false
 
-    - variable: strSmtPassword
+    - variable: strSmtpPassword
       label: "SMTP Password"
       type: "password"
       required: false
@@ -126,6 +133,12 @@ catalog:
       label: "Traefik FrontEnd Rule"
       required: false
       default: "Host: *"
+
+    - variable: strTraefikAuthBasic
+      label: "Traefik Enable Basic Auth"
+      required: false
+      type: string
+      default: "grafana:$apr1$6xfd0icr$VEjXfsoMEYXO2iYGEmwZ71"
 
 
 
