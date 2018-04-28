@@ -32,6 +32,20 @@ catalog:
       required: false
       default: ""
       type: "string"
+
+    - variable: strGrafanaVolumeDataName
+      description: "Grafana Volumen Data Name"
+      label: "Grafana Volumen Name"
+      required: false
+      default: "grafana-data"
+      type: "string"
+
+    - variable: strGrafanaVolumeConfigName
+      description: "Grafana Volumen Config Name"
+      label: "Grafana Volumen Name"
+      required: false
+      default: "grafana-config"
+      type: "string"
     
     - variable: strInfluxDBHost
       description: "InfluxDB host"
@@ -157,9 +171,6 @@ services:
       unhealthy_threshold: 3
       interval: 5000
       strategy: recreate
-  graf-db:
-    scale: 1
-    start_on_create: true
   telegraf-exporter:
     start_on_create: true
   influxdb:
