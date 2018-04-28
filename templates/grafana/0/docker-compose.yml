@@ -1,12 +1,12 @@
 version: '2'
 volumes:
-  grafana-data:
+  $strGrafanaVolumeDataName:
     external: true
     driver: rancher-nfs
-  grafana-config:
+  $strGrafanaVolumeConfigName:
     external: true
     driver: rancher-nfs
-  influxdb-data:
+  $strInfluxVolumeName:
     external: true
     driver: rancher-nfs
 services:
@@ -27,12 +27,12 @@ services:
     links:
     - $strInfluxDBHost:$strInfluxDBHost
     volumes:
-    - grafana-config:/etc/grafana
-    - grafana-data:/var/lib/grafana
+    - $strGrafanaVolumeConfigName:/etc/grafana
+    - $strGrafanaVolumeConfigName:/var/lib/grafana
     ports:
     - $http_port:$http_port
+    {{- if eq .Values.boolTraefikEnabled "true"}}
     labels:
-      {{- if eq .Values.boolTraefikEnabled "true"}}
       traefik.enable: 'true'
       traefik.frontend.rule: "$strTraefikFrontEndRule"
       traefik.port: '$http_port'
@@ -42,7 +42,7 @@ services:
     privileged: true
     image: nikitux/telegraf:v1.4-alpine
     environment:
-      INFLUXDB_HOST: http://$strInfluxDBHost:$strInfluxDBPort
+      INFLUXDB_HOST: http://$strInfluxDBHost:$intInfluxDBPort
     stdin_open: true
     network_mode: host
     tty: true

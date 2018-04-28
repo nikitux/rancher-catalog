@@ -32,6 +32,13 @@ catalog:
       required: false
       default: ""
       type: "string"
+
+    - variable: strGrafanaVolumeName
+      description: "Grafana Volumen Name"
+      label: "Grafana Volumen Name"
+      required: false
+      default: "grafana-data"
+      type: "string"
     
     - variable: strInfluxDBHost
       description: "InfluxDB host"
