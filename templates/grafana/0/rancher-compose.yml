@@ -148,7 +148,7 @@ catalog:
       required: false
       default: "Host: *"
 
-     - variable: boolTraefikBasicAuthEnabled
+    - variable: boolTraefikBasicAuthEnabled
       label: "Traefik Basic Auth Enabled"
       type: boolean
       required: false
