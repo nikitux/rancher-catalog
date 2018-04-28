@@ -1,6 +1,6 @@
-name: TuxGrafana
+name: TuxGrafanaDev
 description: |
   Grafana Catalog by Tux
-version: 1.0.0
+version: 1.0.0-dev
 category: Monitoring
 projectURL: https://github.com/nikitux/rancher-catalog
