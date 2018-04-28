@@ -1,7 +1,14 @@
 version: '2'
+volumes:
+  grafana-data:
+    external: true
+    driver: rancher-nfs
+  influxb-data:
+    external: true
+    driver: rancher-nfs
 services:
   grafana:
-    image: grafana/grafana:4.2.0
+    image: grafana/grafana:5.1.0
     environment:
       GF_USERS_ALLOW_SIGN_UP: "$strGrafanaAllowRegister"
       GF_SERVER_ROOT_URL: "$strGrafanaRootUrl"
@@ -16,28 +23,18 @@ services:
     tty: true
     links:
     - $strInfluxDBHost:$strInfluxDBHost
-    volumes_from:
-    - graf-db
+    volumes:
+    - grafana-data:/etc/grafana
+    - grafana-data:/var/lib/grafana
     ports:
     - $http_port:$http_port
     labels:
-      io.rancher.sidekicks: graf-db
       {{- if eq .Values.boolTraefikEnabled "true"}}
       traefik.enable: 'true'
       traefik.frontend.rule: "$strTraefikFrontEndRule"
       traefik.port: '$http_port'
       traefik.frontend.auth.basic: "$strTraefikAuthBasic"
       {{- end }}
-  graf-db:
-    image: infinityworks/graf-db:11
-    network_mode: none
-    volumes:
-    - grafana-data:/var/lib/grafana/
-    tty: true
-    links:
-    - $strInfluxDBHost:$strInfluxDBHost
-    command:
-    - cat
   telegraf-exporter:
     privileged: true
     image: nikitux/telegraf:v1.4-alpine
@@ -56,7 +53,7 @@ services:
     image: influxdb:1.4
     stdin_open: true
     volumes:
-    - $strInfluxVolumeName:/var/lib/influxdb
+    - influxdb-data:/var/lib/influxdb
     tty: true
     labels:
       io.rancher.container.pull_image: always
