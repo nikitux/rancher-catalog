@@ -36,8 +36,10 @@ services:
       traefik.enable: 'true'
       traefik.frontend.rule: "$strTraefikFrontEndRule"
       traefik.port: '$http_port'
+      {{- if eq .Values.boolTraefikBasicAuthEnabled "true"}}
       traefik.frontend.auth.basic: "$strTraefikAuthBasic"
-      {{- end }}
+      {{- end }}  
+    {{- end }}
   telegraf-exporter:
     privileged: true
     image: nikitux/telegraf:v1.4-alpine
