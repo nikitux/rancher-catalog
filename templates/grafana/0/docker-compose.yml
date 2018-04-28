@@ -28,7 +28,7 @@ services:
     - $strInfluxDBHost:$strInfluxDBHost
     volumes:
     - $strGrafanaVolumeConfigName:/etc/grafana
-    - $strGrafanaVolumeConfigName:/var/lib/grafana
+    - $strGrafanaVolumeDataName:/var/lib/grafana
     ports:
     - $http_port:$http_port
     {{- if eq .Values.boolTraefikEnabled "true"}}
