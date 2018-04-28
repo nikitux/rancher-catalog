@@ -148,11 +148,17 @@ catalog:
       required: false
       default: "Host: *"
 
+     - variable: boolTraefikBasicAuthEnabled
+      label: "Traefik Basic Auth Enabled"
+      type: boolean
+      required: false
+      default: false
+
     - variable: strTraefikAuthBasic
       label: "Traefik Enable Basic Auth"
       required: false
       type: string
-      default: "grafana:$apr1$6xfd0icr$VEjXfsoMEYXO2iYGEmwZ71"
+      default: "grafana:$apr1$Rir/zVEX$NILVCiAU2cY7Kinf20xDX."
 
 
 
