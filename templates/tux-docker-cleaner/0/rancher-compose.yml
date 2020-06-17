@@ -1,0 +1,13 @@
+catalog:
+  name: "TuxCleanup"
+  version: "1.0"
+  description: "DinD Cleanup stack customized by Tux"
+  minimum_rancher_version: v1.3.2
+
+  questions:
+    - variable: strCleanupCmd
+      description: "Docker clean command & schedule "
+      label: "Docker cleanup command & schedule"
+      required: true
+      default: "0 6 * * * /usr/local/bin/docker system prune -f >> /var/log/cron/cron.log 2>&1"
+      type: "string"

@@ -1,0 +1,12 @@
+version: '2'
+volumes:
+services:
+  cleanup:
+    privileged: true
+    image: nikitux/dindsystemprune:v1.0
+    environment:
+      CRON_STRINGS: "$strCleanupCmd"
+      CRON_TAIL:    "true"
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
