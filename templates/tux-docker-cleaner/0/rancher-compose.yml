@@ -1,8 +1,8 @@
-catalog:
-  name: "TuxCleanup"
-  version: "1.0"
-  description: "DinD Cleanup stack customized by Tux"
-
+.catalog:
+   name: "TuxCleanup"
+   version: "1.0"
+   description: "DinD Cleanup stack customized by Tux"
+   uuid: tux-docker-cleanup-0
   questions:
     - variable: strCleanupCmd
       description: "Docker clean command & schedule "
